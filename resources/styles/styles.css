@@ -1,0 +1,143 @@
+
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+
+.menu-bar {
+    -fx-background-color: darkgray;
+    -fx-padding: 0;
+}
+
+.menu {
+    -fx-text-fill: white;
+}
+
+.menu:hover {
+    -fx-background-color: darkgray;
+}
+
+.menu-item {
+    -fx-text-fill: darkgray;
+}
+
+.menu-item:hover {
+    -fx-background-color: white;
+}
+
+.button {
+    -fx-background-color: lightblue;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15 8 15;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: darkblue;
+}
+
+.button:pressed {
+    -fx-background-color: darkblue;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 3;
+    -fx-padding: 5 10 5 10;
+}
+
+.text-field:focused {
+    -fx-border-color: lightblue;
+}
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-border-radius: 3;
+}
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+}
+
+.table-view .column-header {
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 5 10 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: white;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: lightblue;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: white;
+}
+
+.label {
+    -fx-text-fill: darkslategray;
+}
+
+.status-bar {
+    -fx-background-color: white;
+    -fx-padding: 5 10 5 10;
+    -fx-border-color: white;
+    -fx-border-width: 1 0 0 0;
+}
+
+.dialog-pane {
+    -fx-background-color: white;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: lightblue;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+
+.context-menu {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-border-radius: 3;
+}
+
+.separator {
+    -fx-padding: 0 10 0 10;
+}
+
+.scroll-bar {
+    -fx-background-color: white;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: white;
+}
