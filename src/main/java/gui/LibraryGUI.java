@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TableCell;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -562,15 +564,28 @@ public class LibraryGUI extends Application {
         sortBy.getItems().addAll("Title", "Author", "Year", "Genre", "ISBN");
         sortBy.setValue("Title");
 
-        CheckBox descending = new CheckBox("Descending order");
+        // Create radio buttons for sort order
+        ToggleGroup sortOrderGroup = new ToggleGroup();
+        RadioButton ascending = new RadioButton("Ascending (A-Z, Oldest-Newest)");
+        RadioButton descending = new RadioButton("Descending (Z-A, Newest-Oldest)");
 
-        content.getChildren().addAll(new Label("Sort by:"), sortBy, descending);
+        ascending.setToggleGroup(sortOrderGroup);
+        descending.setToggleGroup(sortOrderGroup);
+        ascending.setSelected(true);
+
+        content.getChildren().addAll(
+                new Label("Sort by:"),
+                sortBy,
+                new Label("Sort order:"),
+                ascending,
+                descending
+        );
 
         dialog.getDialogPane().setContent(content);
 
         dialog.setResultConverter(btn -> {
             if (btn == sortBtn) {
-                return new Pair<>(sortBy.getValue(), !descending.isSelected());
+                return new Pair<>(sortBy.getValue(), ascending.isSelected());
             }
             return null;
         });
@@ -582,7 +597,9 @@ public class LibraryGUI extends Application {
 
             libraryManager.sortBooks(field, asc);
             loadTableData();
-            showSimpleAlert("Books sorted by " + choice.getKey());
+
+            String orderText = asc ? "ascending" : "descending";
+            showSimpleAlert("Books sorted by " + choice.getKey() + " (" + orderText + ")");
         });
     }
 

@@ -1,11 +1,11 @@
 ISBN|Title|Author|Publisher|Year|Genre|Available|Borrower|BorrowDate|ReturnDueDate
-9780439708180|Harry_Potter_and_the_Sorcerers_Stone|Rowling_JK|Scholastic|1997|FANTASY|true|null|null|null
-9780547928227|The_Hobbit|Tolkien_JRR|Mariner_Books|1937|FANTASY|true|null|null|null
-9780553593716|A_Game_of_Thrones|Martin_George_RR|Bantam|1996|FANTASY|true|null|null|null
-9780441013593|Dune|Herbert_Frank|Ace_Books|1965|SCIENCE_FICTION|false|Rahman_Karimov|2025-06-30|2025-07-14
-9780345391803|The_Hitchhikers_Guide_to_the_Galaxy|Adams_Douglas|Del_Rey|1979|SCIENCE_FICTION|true|null|null|null
-9780062073501|The_Girl_with_the_Dragon_Tattoo|Larsson_Stieg|Vintage_Crime|2005|MYSTERY|true|null|null|null
-9780307474278|The_Da_Vinci_Code|Brown_Dan|Anchor|2003|THRILLER|true|null|null|null
-9780062316110|Sapiens|Harari_Yuval_Noah|Harper|2011|NON_FICTION|true|null|null|null
+9780553593716|A_Game_of_Thrones|Martin_George_RR|Bantam|1996|FANTASY|false|SALAM|2025-07-07|2025-07-21
 9780141439518|Camal and Camala|Austen_Jane|Penguin_Classics|1813|CLASSIC|true|null|null|null
+9780441013593|Dune|Herbert_Frank|Ace_Books|1965|SCIENCE_FICTION|false|Israfil_Mammadov|2025-06-30|2025-07-14
+9780439708180|Harry_Potter_and_the_Sorcerers_Stone|Rowling_JK|Scholastic|1997|FANTASY|true|null|null|null
+9780062316110|Sapiens|Harari_Yuval_Noah|Harper|2011|NON_FICTION|true|null|null|null
+9780307474278|The_Da_Vinci_Code|Brown_Dan|Anchor|2003|THRILLER|false|Ahmad_Ahmadli|2025-07-07|2025-07-21
+9780062073501|The_Girl_with_the_Dragon_Tattoo|Larsson_Stieg|Vintage_Crime|2005|MYSTERY|true|null|null|null
 9780486282114|The_Great_Gatsby|Fitzgerald_F_Scott|Dover_Publications|1925|CLASSIC|true|null|null|null
+9780345391803|The_Hitchhikers_Guide_to_the_Galaxy|Adams_Douglas|Del_Rey|1979|SCIENCE_FICTION|true|null|null|null
+9780547928227|The_Hobbit|Tolkien_JRR|Mariner_Books|1937|FANTASY|true|null|null|null
