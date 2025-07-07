@@ -35,8 +35,14 @@ public class FileHandler {
             System.out.println("Data saved successfully to " + DATA_FILE);
             return true;
 
+        }  catch (SecurityException e) {
+            System.err.println("Permission denied: " + e.getMessage());
+            return false;
         } catch (IOException e) {
-            System.out.println("Error saving to file: " + e.getMessage());
+            System.err.println("File I/O error: " + e.getMessage());
+            return false;
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
             return false;
         }
     }
