@@ -223,6 +223,71 @@ public class LibraryManager {
 
         return stats;
     }
+    public Map<String, Object> getAdvancedLibraryStats(LibraryManager manager) {
+        Map<String, Object> stats = manager.getLibraryStats();
+        List<Book> books = manager.getBooks();
+
+        stats.put("mostPopularGenre", getMostPopularGenre(books));
+        stats.put("oldestBook", getOldestBook(books));
+        stats.put("newestBook", getNewestBook(books));
+        stats.put("averagePublicationYear", getAveragePublicationYear(books));
+        stats.put("overdueBooks", getOverdueBooks(books));
+        stats.put("topBorrowers", getTopBorrowers(books));
+
+        return stats;
+    }
+
+    private Genre getMostPopularGenre(List<Book> books) {
+        return books.stream()
+                .collect(Collectors.groupingBy(Book::getGenre, Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+    }
+
+    private Book getOldestBook(List<Book> books) {
+        return books.stream()
+                .min(Comparator.comparing(Book::getPublicationYear))
+                .orElse(null);
+    }
+
+    private Book getNewestBook(List<Book> books) {
+        return books.stream()
+                .max(Comparator.comparing(Book::getPublicationYear))
+                .orElse(null);
+    }
+
+    private double getAveragePublicationYear(List<Book> books) {
+        return books.stream()
+                .mapToInt(Book::getPublicationYear)
+                .average()
+                .orElse(0.0);
+    }
+
+    private List<Book> getOverdueBooks(List<Book> books) {
+        Date today = new Date();
+        return books.stream()
+                .filter(book -> !book.isAvailable() &&
+                        book.getReturnDueDate() != null &&
+                        book.getReturnDueDate().before(today))
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Long> getTopBorrowers(List<Book> books) {
+        return books.stream()
+                .filter(book -> !book.isAvailable() && book.getBorrowerName() != null)
+                .collect(Collectors.groupingBy(Book::getBorrowerName, Collectors.counting()))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(5)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+    }
 
     public ArrayList<Book> getBooks() {
         return books;
