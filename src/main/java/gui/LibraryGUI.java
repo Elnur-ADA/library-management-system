@@ -14,7 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
@@ -573,13 +572,7 @@ public class LibraryGUI extends Application {
         descending.setToggleGroup(sortOrderGroup);
         ascending.setSelected(true);
 
-        content.getChildren().addAll(
-                new Label("Sort by:"),
-                sortBy,
-                new Label("Sort order:"),
-                ascending,
-                descending
-        );
+        content.getChildren().addAll(new Label("Sort by:"), sortBy, new Label("Sort order:"), ascending, descending);
 
         dialog.getDialogPane().setContent(content);
 
@@ -759,7 +752,7 @@ public class LibraryGUI extends Application {
 
 
     private void showStats() {
-        Map<String, Object> stats = libraryManager.getLibraryStats();
+        Map<String, Object> stats = libraryManager.getAdvancedLibraryStats(libraryManager);
 
         Alert statsDialog = new Alert(Alert.AlertType.INFORMATION);
         statsDialog.setTitle("Library Stats");
@@ -770,21 +763,37 @@ public class LibraryGUI extends Application {
         content.append("Available: ").append(stats.get("availableBooks")).append("\n");
         content.append("Borrowed: ").append(stats.get("borrowedBooks")).append("\n\n");
 
-        @SuppressWarnings("unchecked") Map<Genre, Long> genres = (Map<Genre, Long>) stats.get("genreDistribution");
+        Map<Genre, Long> genres = (Map<Genre, Long>) stats.get("genreDistribution");
         if (genres != null && !genres.isEmpty()) {
             content.append("Books by Genre:\n");
-            genres.forEach((genre, count) -> content.append("  ").append(genre.toString()).append(": ").append(count).append("\n"));
+            genres.forEach((genre, count) -> content.append("  ").append(genre).append(": ").append(count).append("\n"));
         }
 
-        long overdueCount = libraryManager.getBooks().stream().filter(book -> !book.isAvailable() && book.getReturnDueDate() != null && book.getReturnDueDate().before(new Date())).count();
+        @SuppressWarnings("unchecked") Map<String, Long> publishers = (Map<String, Long>) stats.get("publisherDistribution");
+        if (publishers != null && !publishers.isEmpty()) {
+            content.append("\nBooks by Publisher:\n");
+            publishers.forEach((publisher, count) -> content.append("  ").append(publisher).append(": ").append(count).append("\n"));
+        }
 
-        if (overdueCount > 0) {
-            content.append("\n Overdue Books: ").append(overdueCount);
+        content.append("\nMost Popular Genre: ").append(stats.get("mostPopularGenre")).append("\n");
+        content.append("Oldest Book Year: ").append(Optional.ofNullable((Book) stats.get("oldestBook")).map(Book::getPublicationYear).orElse(null)).append("\n");
+        content.append("Newest Book Year: ").append(Optional.ofNullable((Book) stats.get("newestBook")).map(Book::getPublicationYear).orElse(null)).append("\n");
+
+        Map<String, Long> topBorrowers = (Map<String, Long>) stats.get("topBorrowers");
+        if (topBorrowers != null && !topBorrowers.isEmpty()) {
+            content.append("\nTop Borrowers:\n");
+            topBorrowers.forEach((name, count) -> content.append("  ").append(name).append(": ").append(count).append(" book\n"));
+        }
+
+        List<Book> overdueBooks = (List<Book>) stats.get("overdueBooks");
+        if (overdueBooks != null && !overdueBooks.isEmpty()) {
+            content.append("\nOverdue Books: ").append(overdueBooks.size()).append("\n");
         }
 
         statsDialog.setContentText(content.toString());
         statsDialog.showAndWait();
     }
+
 
     private void doSearch() {
         String criteria = searchType.getValue();

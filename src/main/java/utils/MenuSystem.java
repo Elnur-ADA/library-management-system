@@ -416,15 +416,15 @@ public class MenuSystem {
     private void displayStatistics() {
         System.out.println("\n=== LIBRARY STATISTICS ===");
 
-        Map<String, Object> stats = libraryManager.getLibraryStats();
+        Map<String, Object> stats = libraryManager.getAdvancedLibraryStats(libraryManager);
 
         System.out.println("Total Books: " + stats.get("totalBooks"));
         System.out.println("Available Books: " + stats.get("availableBooks"));
         System.out.println("Borrowed Books: " + stats.get("borrowedBooks"));
 
         System.out.println("\nGenre Distribution:");
-        Map<String, Long> genreCount = (Map<String, Long>) stats.get("genreDistribution");
-        for (Map.Entry<String, Long> entry : genreCount.entrySet()) {
+        Map<?, Long> genreCount = (Map<?, Long>) stats.get("genreDistribution");
+        for (Map.Entry<?, Long> entry : genreCount.entrySet()) {
             System.out.println("  " + entry.getKey() + ": " + entry.getValue());
         }
 
@@ -434,8 +434,35 @@ public class MenuSystem {
             System.out.println("  " + entry.getKey() + ": " + entry.getValue());
         }
 
+        System.out.println("\nMost Popular Genre: " + stats.get("mostPopularGenre"));
+
+        Book oldestBook = (Book) stats.get("oldestBook");
+        if (oldestBook != null) {
+            System.out.println("Oldest Book: " + oldestBook.getTitle() + " (" + oldestBook.getPublicationYear() + ")");
+        }
+
+        Book newestBook = (Book) stats.get("newestBook");
+        if (newestBook != null) {
+            System.out.println("Newest Book: " + newestBook.getTitle() + " (" + newestBook.getPublicationYear() + ")");
+        }
+
+        System.out.println("\nTop Borrowers:");
+
+        Map<String, Long> topBorrowers = (Map<String, Long>) stats.get("topBorrowers");
+        if (topBorrowers != null && !topBorrowers.isEmpty()) {
+            for (Map.Entry<String, Long> entry : topBorrowers.entrySet()) {
+                System.out.println("  " + entry.getKey() + ": " + entry.getValue() + " book");
+            }
+        } else {
+            System.out.println("  No top borrowers found.");
+        }
+
+        List<Book> overdueBooks = (List<Book>) stats.get("overdueBooks");
+        System.out.println("\nOverdue Books: " + (overdueBooks != null ? overdueBooks.size() : 0));
+
         pauseForUser();
     }
+
 
     private void borrowReturnMenu() {
         System.out.println("\n=== BORROW/RETURN BOOK ===");
